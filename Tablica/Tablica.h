@@ -7,9 +7,10 @@ using namespace std;
 class Tablica
 {
 	int rozmiar;
-	int * tablica_liczb; // dynamicznie tworzona tablica w zaleznosci od podanego rozmiaru uzytkownika
 
 public:
+	int * tablica_liczb; // dynamicznie tworzona tablica w zaleznosci od podanego rozmiaru uzytkownika
+	Tablica() {}
 	Tablica(int rozmiar_do_sprawdzenia)
 	{
 		try
@@ -24,6 +25,7 @@ public:
 
 	~Tablica()
 	{
+		if(rozmiar > 0)
 		delete[] tablica_liczb;
 	}
 
@@ -40,6 +42,12 @@ public:
 		}
 	}
 
+	void czy_bledne_odwolanie_do_elementu_tablicy(int element)
+	{
+		if (element < 0 || element >= rozmiar)
+			throw PozaZasiegiem();
+	}
+
 	void dynamiczna_alokacja()
 	{
 		tablica_liczb = new int[rozmiar];
@@ -47,18 +55,19 @@ public:
 
 	int & operator[] (int index_tablicy)
 	{
-		try
-		{
-			
-		}
-		catch (const std::exception&)
-		{
+		if (index_tablicy < 0 || index_tablicy >= rozmiar)
+			throw PozaZasiegiem();
 
-		}
-		cout << "Dla indexu tablicy: " << index_tablicy;
-		cout << " Zwracamy adres: " << &tablica_liczb[index_tablicy];
-		cout << " z wartoscia: " << tablica_liczb[index_tablicy] << endl;
 		return tablica_liczb[index_tablicy];
 	}
 
+	Tablica & operator/=(int dzielnik)
+	{
+		cout << "Op dzielenia";
+		for (size_t i = 0; i < rozmiar; i++)
+		{
+			tablica_liczb[i] /= dzielnik;
+		}
+		return *this;
+	}
 };

@@ -11,7 +11,7 @@ public:
 	}
 };
 
-class PozaZasiegiem : exception
+class PozaZasiegiem : public exception
 {
 public:
 	char const* what() const override
