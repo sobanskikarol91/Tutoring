@@ -2,41 +2,27 @@
 #include "Wielomian.h"
 using namespace std;
 
+/* */
 
-void wypelnij_tablice(int tab[], int rozmiar)
-{
-	for (int i = 0; i < rozmiar; i++)
-	{
-		tab[i] = ( rozmiar -i-1);
-	}
-
-}
-
-void wypisz_tablice(int tab[], int rozmiar)
-{
-	cout << "[ ";
-	for (size_t i = 0; i < rozmiar; i++)
-		cout <<  "a" << tab[i] << ", ";
-
-	cout << "] ";
-
-}
-
-void wyswietl_podany_element_od_konca(int index, int tab[], int rozmiar)
-{
-	cout << "Element: ";
-	//cout << tab[index];
-	cout << tab[rozmiar - 1 - index];
-}
 
 int main()
 {
-	const int rozmiar = 5;
-	int tab[rozmiar];
+	try
+	{
+		Wielomian w(2);
+		cout << w << endl;
 
-	wypelnij_tablice(tab, rozmiar);
-	wypisz_tablice(tab, rozmiar);
-	wyswietl_podany_element_od_konca(1, tab, rozmiar);
+		w.Ustaw(7, 2);
+		w.Ustaw(9, 1);
+		w.Ustaw(5, 0);
+
+		//cout << w << endl;
+		//cout << w.wartosc(2) << endl;
+	}
+	catch (const std::exception& wyjatek)
+	{
+		cout << wyjatek.what();
+	}
 
 	getchar();
 	return 0;
