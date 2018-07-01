@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <math.h>
 using namespace std;
@@ -9,28 +10,27 @@ class Wielomian
 	int * wspolczynniki;
 
 public:
-	Wielomian(int nowy_stopien) : stopien(nowy_stopien) // 3 stopien
+	 Wielomian(int nowy_stopien) : stopien(nowy_stopien) // 3 stopien
 	{
 		stworz_dynamicznie_tablice();
 		wypelnij_wspolczynniki_zerami();
 	}
-
 	// stopien = 2; // elementow 3
 	//                                     
 private:
-	void stworz_dynamicznie_tablice()
+	inline void stworz_dynamicznie_tablice()
 	{
 		wspolczynniki = new int[stopien + 1];   // 4 [0,1,2,3]
 	}
 
 public:
-	int Stopien()
+	inline int Stopien()
 	{
 		return stopien;
 	}
 
 	// 4 [0,1,2,3]
-	void Ustaw(int wartosc_wspolczynika, int index_wspolczynnika)
+	void Ustaw(const int & wartosc_wspolczynika,const int index_wspolczynnika)
 	{
 		wspolczynniki[index_wspolczynnika] = wartosc_wspolczynika;
 

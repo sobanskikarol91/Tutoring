@@ -3,18 +3,13 @@
 using namespace std;
 
 /* */
-
-
 int main()
 {
 	try
 	{
 		Wielomian w(2);
-		cout << w << endl;
-
-		w.Ustaw(7, 2);
-		w.Ustaw(9, 1);
-		w.Ustaw(5, 0);
+		w.Wprowadz();
+			
 
 		//cout << w << endl;
 		//cout << w.wartosc(2) << endl;
@@ -27,4 +22,5 @@ int main()
 	getchar();
 	return 0;
 }
+
 
