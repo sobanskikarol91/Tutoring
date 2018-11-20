@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include "Source.h"
 
-void CheckMin(float * min, const  float * input)
+inline void CheckMin(float *min, const float *input)
 {
 	*min = *input < *min ? *input : *min;
 }
 
-void CheckMax(float *max, const float * input)
+inline void CheckMax(float *max, const float *input)
 {
 	*max = *input > *max ? *input : *max;
 }
 
-void Display(float *min, float *max, float *sum, float *avr)
+inline void Display(const float *min, const float *max, const float *sum, const float *avr)
 {
 	printf("Min: %f\n", *min);
 	printf("Max: %f\n", *max);
@@ -19,19 +19,36 @@ void Display(float *min, float *max, float *sum, float *avr)
 	printf("Sum: %f\n", *sum);
 }
 
-void Sum(float *sum, const float *input)
+inline void Sum(float *sum, const float *input)
 {
 	*sum += *input;
 }
 
-void Avr(float * avr, const float * numberAmount, const float * sum)
+inline void Avr(float * avr, const int * numberAmount, const float * sum)
 {
 	*avr = *sum / *numberAmount;
 }
 
+inline void CheckMinMaxState(float *min, float *max, const int *numberAmount, const float * input)
+{
+	if (*numberAmount == 1)
+	{
+		*min = *input;
+		*max = *input;
+		printf("Min: %f\n", *min);
+		printf("Max: %f\n", *max);
+	}
+	else
+	{
+		CheckMin(min, input);
+		CheckMax(max, input);
+	}
+}
+
 int main()
 {
-	float min = 0, max = 0, sum = 0, avr = 0, input = 0, numberAmount = 0;
+	float min = 0, max = 0, sum = 0, avr = 0, input = 0;
+	int numberAmount = 0;
 
 	while (1)
 	{
@@ -40,18 +57,7 @@ int main()
 		if (input != 0)
 		{
 			numberAmount++;
-
-			if (numberAmount == 1)
-			{
-				min = input;
-				max = input;
-			}
-			else
-			{
-				CheckMin(&min, &input);
-				CheckMax(&max, &input);
-			}
-
+			CheckMinMaxState(&min, &max, &numberAmount, &input);
 			Sum(&sum, &input);
 			Avr(&avr, &numberAmount, &sum);
 		}
