@@ -1,82 +1,65 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
+#include "Source.h"
 
-/*
-%c -dla znaków, czyli typu zmiennej char.
-%s – dla ³añucha.
-%d – dla liczb ca³kowitych, czyli dla zmiennych short int, long int.
-%u – dla liczby bez znaku.
-%f – dla liczby zmiennoprzecinkowych , czyli dla typów float, double.
-*/
-
-#define MAX 1000
-
-// 4 9 0 1
-void Min(const float * tablica, int rozmiar)
+void CheckMin(float * min, const  float * input)
 {
-	float min = tablica[0];
-
-	for (int i = 1; i < rozmiar; i++)
-	{
-		if (tablica[i] < min)
-			min = tablica[i];
-	}
-
-	printf("Wartosc minimalna = %f", min);
+	*min = *input < *min ? *input : *min;
 }
 
-
-void wyswietl(const float * tablica, int rozmiar)
+void CheckMax(float *max, const float * input)
 {
-	float suma = 0;
-	suma = Suma(tablica, rozmiar);
-	//float srednia = Srednia(tablica, rozmiar);
-
-	printf("SumaPoza: %f\n", suma);
-	//printf("Srednia: %f", srednia);
+	*max = *input > *max ? *input : *max;
 }
 
-float Suma(const float * tablica, int rozmiar)
+void Display(float *min, float *max, float *sum, float *avr)
 {
-	float suma = 0;
-
-	for (size_t i = 0; i < rozmiar; i++)
-		suma += tablica[i];
-
-	printf("SumaWFunkcji: %f\n", suma);
-	return suma;
+	printf("Min: %f\n", *min);
+	printf("Max: %f\n", *max);
+	printf("Avr: %f\n", *avr);
+	printf("Sum: %f\n", *sum);
 }
 
-float Srednia(const float * tablica, int rozmiar)
+void Sum(float *sum, const float *input)
 {
-	float suma = Suma(tablica, rozmiar);
-	return suma / rozmiar;
+	*sum += *input;
+}
+
+void Avr(float * avr, const float * numberAmount, const float * sum)
+{
+	*avr = *sum / *numberAmount;
 }
 
 int main()
 {
-	float tablica[MAX];
-	float wprowadzona;
-	int index = 0;
+	float min = 0, max = 0, sum = 0, avr = 0, input = 0, numberAmount = 0;
 
 	while (1)
 	{
-		scanf("%f", &wprowadzona);
+		scanf_s("%f", &input);
 
-		if (wprowadzona != 0)
+		if (input != 0)
 		{
-			tablica[index] = wprowadzona;
-			index++;
+			numberAmount++;
+
+			if (numberAmount == 1)
+			{
+				min = input;
+				max = input;
+			}
+			else
+			{
+				CheckMin(&min, &input);
+				CheckMax(&max, &input);
+			}
+
+			Sum(&sum, &input);
+			Avr(&avr, &numberAmount, &sum);
 		}
 		else
 			break;
 	}
 
-	//Suma(tablica, index);
-	wyswietl(tablica, index);
-	Min(tablica, index);
-
-	printf("Wprowadz dane");
+	Display(&min, &max, &sum, &avr);
 	system("pause");
 	return 0;
 }
