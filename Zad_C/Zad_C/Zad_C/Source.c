@@ -29,7 +29,7 @@ void Min(const float * tablica, int rozmiar)
 void wyswietl(const float * tablica, int rozmiar)
 {
 	float suma = 0;
-	 suma = Suma(tablica, rozmiar);
+	suma = Suma(tablica, rozmiar);
 	//float srednia = Srednia(tablica, rozmiar);
 
 	printf("SumaPoza: %f\n", suma);
@@ -41,7 +41,7 @@ float Suma(const float * tablica, int rozmiar)
 	float suma = 0;
 
 	for (size_t i = 0; i < rozmiar; i++)
-		suma +=  tablica[i];
+		suma += tablica[i];
 
 	printf("SumaWFunkcji: %f\n", suma);
 	return suma;
