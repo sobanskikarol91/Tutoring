@@ -24,19 +24,17 @@ inline void Sum(float *sum, const float *input)
 	*sum += *input;
 }
 
-inline void Avr(float * avr, const int * numberAmount, const float * sum)
+inline void Avr(float * avr, const int * counter, const float * sum)
 {
-	*avr = *sum / *numberAmount;
+	*avr = *sum / *counter;
 }
 
-inline void CheckMinMaxState(float *min, float *max, const int *numberAmount, const float * input)
+inline void CheckMinMaxState(float *min, float *max, const int *counter, const float * input)
 {
-	if (*numberAmount == 1)
+	if (*counter == 1)
 	{
 		*min = *input;
 		*max = *input;
-		printf("Min: %f\n", *min);
-		printf("Max: %f\n", *max);
 	}
 	else
 	{
@@ -48,18 +46,18 @@ inline void CheckMinMaxState(float *min, float *max, const int *numberAmount, co
 int main()
 {
 	float min = 0, max = 0, sum = 0, avr = 0, input = 0;
-	int numberAmount = 0;
 
 	while (1)
 	{
+		static int counter = 0;
 		scanf_s("%f", &input);
 
 		if (input != 0)
 		{
-			numberAmount++;
-			CheckMinMaxState(&min, &max, &numberAmount, &input);
+			counter++;
+			CheckMinMaxState(&min, &max, &counter, &input);
 			Sum(&sum, &input);
-			Avr(&avr, &numberAmount, &sum);
+			Avr(&avr, &counter, &sum);
 		}
 		else
 			break;
