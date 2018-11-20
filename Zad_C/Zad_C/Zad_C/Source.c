@@ -29,7 +29,7 @@ inline void Avr(float * avr, const int * counter, const float * sum)
 	*avr = *sum / *counter;
 }
 
-inline void CheckMinMaxState(float *min, float *max, const int *counter, const float * input)
+inline void CheckMinMaxState(float *min, float *max,  int *counter, const float * input)
 {
 	if (*counter == 1)
 	{
@@ -43,26 +43,32 @@ inline void CheckMinMaxState(float *min, float *max, const int *counter, const f
 	}
 }
 
-int main()
+void ReadInput(float *min, float *max, float *sum, float *avr)
 {
-	float min = 0, max = 0, sum = 0, avr = 0, input = 0;
+	float input = 0;
+	int counter = 0;
 
 	while (1)
 	{
-		static int counter = 0;
 		scanf_s("%f", &input);
 
 		if (input != 0)
 		{
 			counter++;
-			CheckMinMaxState(&min, &max, &counter, &input);
-			Sum(&sum, &input);
-			Avr(&avr, &counter, &sum);
+			CheckMinMaxState(min, max, &counter, &input);
+			Sum(sum, &input);
+			Avr(avr, &counter, sum);
 		}
 		else
 			break;
 	}
+}
 
+int main()
+{
+	float min = 0, max = 0, sum = 0, avr = 0;
+
+	ReadInput(&min, &max, &sum, &avr);
 	Display(&min, &max, &sum, &avr);
 	system("pause");
 	return 0;
