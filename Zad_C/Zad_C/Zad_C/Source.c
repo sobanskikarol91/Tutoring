@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include "Source.h"
 
+typedef struct MyStruct
+{
+	float min;
+	float max;
+	float sum;
+	float avr;
+}Result;
+
 inline void CheckMin(float *min, const float *input)
 {
 	*min = *input < *min ? *input : *min;
@@ -11,12 +19,12 @@ inline void CheckMax(float *max, const float *input)
 	*max = *input > *max ? *input : *max;
 }
 
-inline void Display(const float *min, const float *max, const float *sum, const float *avr)
+inline void Display(const Result * res)
 {
-	printf("Min: %f\n", *min);
-	printf("Max: %f\n", *max);
-	printf("Avr: %f\n", *avr);
-	printf("Sum: %f\n", *sum);
+	printf("Min: %f\n", res->min);
+	printf("Max: %f\n", res->max);
+	printf("Avr: %f\n", res->avr);
+	printf("Sum: %f\n", res->sum);
 }
 
 inline void Sum(float *sum, const float *input)
@@ -43,17 +51,17 @@ inline void CheckMinMaxState(float *min, float *max, int *counter, const float *
 	}
 }
 
-void Calculate(float *min, float *max, float *sum, float *avr, const float * input)
+void Calculate(Result * res, const float * input)
 {
 	static int counter = 1;
 
-	CheckMinMaxState(min, max, &counter, input);
-	Sum(sum, input);
-	Avr(avr, &counter, sum);
+	CheckMinMaxState(&res->min, &res->max, &counter, input);
+	Sum(&res->sum, input);
+	Avr(&res->avr, &counter, &res->sum);
 	counter++;
 }
 
-void ReadInput(float *min, float *max, float *sum, float *avr)
+inline void ReadInput(Result * res)
 {
 	float input = 0;
 
@@ -62,17 +70,18 @@ void ReadInput(float *min, float *max, float *sum, float *avr)
 		scanf_s("%f", &input);
 
 		if (input != 0)
-			Calculate(min, max, sum, avr, &input);
+			Calculate(res, &input);
 		else break;
 	}
 }
 
 int main()
 {
-	float min = 0, max = 0, sum = 0, avr = 0;
+	Result res = {0,0,0,0};
 
-	ReadInput(&min, &max, &sum, &avr);
-	Display(&min, &max, &sum, &avr);
+	ReadInput(&res);
+	Display(&res);
+
 	system("pause");
 	return 0;
 }
